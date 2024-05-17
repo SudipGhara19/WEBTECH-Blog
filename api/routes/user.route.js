@@ -3,8 +3,8 @@ import express from 'express';
 import { test } from "../controllers/user.controller.js";
 
 
-const userRouter = express.Router();
+const userRoutes = express.Router();
 
-userRouter.get('/test', test);
+userRoutes.get('/test', test);
 
-export default userRouter;
+export default userRoutes;
