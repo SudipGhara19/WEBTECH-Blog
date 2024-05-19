@@ -56,11 +56,11 @@ export default function Signup(){
                 <div className="flex-1">
                 <Link to='/' className="font-bold dark:text-white text-4xl">
                     <span className="px-2 py-1 bg-gradient-to-r from-indigo-700 via-purple-600 to-pink-700 text-white rounded-md">
-                        MERN-BLOG
+                    WEBtech-BLOG
                     </span>
                 </Link>
                 <p className="text-sm mt-6">
-                    Hi, this is a demo project created by <b>"Sudip Ghara"</b> usign <b>MERN</b> technologies. You can signup using your email 
+                    Hi, this is a web technology's blogging application demo project created by <b>"Sudip Ghara"</b> usign <b>MERN</b> technologies. You can signup using your email 
                     and password or with Google.
                 </p>
                 </div>
