@@ -21,7 +21,7 @@ export default function Signup(){
         e.preventDefault();
 
         if(!formData.username || !formData.email || !formData.password){
-            setErrorMessage("Please fill out all the fields.")
+            return setErrorMessage("Please fill out all the fields.")
         }
 
         try{
@@ -37,7 +37,7 @@ export default function Signup(){
 
             const data = await res.json();
             if(data.success === false){
-                setErrorMessage(data.message);
+                return setErrorMessage(data.message);
             }
              setLoading(false);
              if(res.ok){

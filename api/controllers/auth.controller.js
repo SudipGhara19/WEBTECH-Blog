@@ -34,7 +34,7 @@ export const signin = async (req, res, next) => {
     const {email, password} = req.body;
 
     if(!email || !password || email === '' || email === ''){
-        next(errorHandler(400, 'All fields are required.'));
+        return next(errorHandler(400, 'All fields are required.'));
     }
 
     try{
