@@ -1,6 +1,7 @@
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react"
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom"
+import OAuth from "../components/OAuth.jsx";
 
 export default function Signup(){
 
@@ -27,7 +28,7 @@ export default function Signup(){
         try{
             setLoading(true);
             setErrorMessage(null);
-            const res = await fetch('http://127.0.0.1:5001/api/auth/signup', {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND}api/auth/signup`, {
                 method: 'POST',
                 headers: {
                     "content-type": "application/json"
@@ -91,6 +92,7 @@ export default function Signup(){
                         }
                             
                         </Button>
+                        <OAuth />
                     </form>
 
                     <div className="flex gap-2 text-sm mt-5">

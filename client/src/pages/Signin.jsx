@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signInStart, signInSuccess, signInFailure } from "../redux/user/userSlice.js";
 import { useDispatch, useSelector } from "react-redux";
+import OAuth from "../components/OAuth.jsx";
 
 export default function Signin(){
 
@@ -29,7 +30,7 @@ export default function Signin(){
 
         try{
             dispatch(signInStart())
-            const res = await fetch('http://127.0.0.1:5001/api/auth/signin', {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND}api/auth/signin`, {
                 method: 'POST',
                 headers: {
                     "content-type": "application/json"
@@ -89,6 +90,7 @@ export default function Signin(){
                         }
                             
                         </Button>
+                        <OAuth />
                     </form>
 
                     <div className="flex gap-2 text-sm mt-5">
