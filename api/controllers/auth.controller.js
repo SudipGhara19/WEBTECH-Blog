@@ -38,7 +38,7 @@ export const signin = async (req, res, next) => {
     }
 
     try{
-        // checking user has a account or not by email
+            // checking user has a account or not by email
          const validUser = await User.findOne({email});
          if(!validUser){
             return next(errorHandler(400, 'User not found.'))
@@ -62,6 +62,8 @@ export const signin = async (req, res, next) => {
          // sending token to the cookie and userdata with response
          res.status(200).cookie('access_token', token, {
             httpOnly: true,
+            secure: true,
+            sameSite: 'None'
          }).json(rest);
 
 
@@ -92,7 +94,9 @@ export const google = async (req, res, next) => {
             const {password, ...rest} = user._doc;
             // sending token to the cookie and userdata with response
             res.status(200).cookie('access_token', token, {
-            httpOnly: true,
+                httpOnly: true,
+                secure: true,
+                sameSite: 'None'
             }).json(rest);
 
         }else{
@@ -120,6 +124,8 @@ export const google = async (req, res, next) => {
             // sending token to the cookie and userdata with response
             res.status(200).cookie('access_token', token, {
             httpOnly: true,
+            secure: true,
+            sameSite: 'None'
             }).json(rest);
 
         }

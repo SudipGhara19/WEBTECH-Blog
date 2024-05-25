@@ -21,6 +21,7 @@ export default function OAuth(){
             const resultfromGoogle = await signInWithPopup(auth, provider);
             const res = await fetch(`${process.env.REACT_APP_BACKEND}api/auth/google`, {
                 method: "POST",
+                credentials: 'include',
                 headers: { 'Content-Type':'application/json' },
                 body: JSON.stringify({
                     name: resultfromGoogle.user.displayName,

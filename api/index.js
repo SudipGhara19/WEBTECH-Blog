@@ -12,9 +12,29 @@ dotenv.config();
 const port = 5001;
 const app = express();
 
-app.use(cors());
+const corsOption = {
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+}
+
+app.use(cors(corsOption));
 app.use(express.json());
 app.use(cookieParser());
+
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    next();
+});
+
+app.use((req, res, next) => {
+    res.removeHeader('Cross-Origin-Opener-Policy');
+    res.removeHeader('Cross-Origin-Embedder-Policy');
+    next();
+});
 
 //connecting to mongodb database
 mongoose.connect(process.env.MONGO_URL)
