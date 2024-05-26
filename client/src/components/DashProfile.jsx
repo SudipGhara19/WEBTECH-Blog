@@ -1,7 +1,7 @@
 import { TextInput, Button, Alert, Modal } from 'flowbite-react';
 import { useState, useRef, useEffect } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import { updateStart, updateSuccess, updateFailure, deleteUserStart, deleteUserSuccess, deleteUserFailure } from '../redux/user/userSlice.js';
+import { updateStart, updateSuccess, updateFailure, deleteUserStart, deleteUserSuccess, deleteUserFailure, signOutSuccess } from '../redux/user/userSlice.js';
 import {getDownloadURL, getStorage, ref, uploadBytesResumable} from 'firebase/storage';
 import {app} from '../firebase.js';
 import { CircularProgressbar } from 'react-circular-progressbar';
@@ -120,6 +120,7 @@ export default function DashProfile(){
         }
     }
 
+
     const handleDelete = async () => {
         setShowModal(false);
 
@@ -140,6 +141,30 @@ export default function DashProfile(){
             dispatch(deleteUserFailure(error.message));
         }
     }
+
+
+
+    const handleSignOut = async () => {
+        try{
+            const res = await fetch(`${process.env.REACT_APP_BACKEND}api/user/signout`, {
+                method: 'POST',
+                credentials: 'include'
+            });
+
+            const data = await res.json();
+
+            if(!res.ok){
+                console.log(data.message);
+            }else{
+                dispatch(signOutSuccess());
+            }
+
+        }catch(error){
+            console.log(error.message);
+        }
+    }
+
+
 
     return(
         <div className="mx-auto max-w-lg p-3 w-full">
@@ -195,7 +220,7 @@ export default function DashProfile(){
             </form>
             <div className='flex flex-row justify-between text-red-600 mt-5'>
                 <span onClick={() => setShowModal(true)} className='cursor-pointer'>Delete Account</span>
-                <span className='cursor-pointer'>Sign Out</span>
+                <span className='cursor-pointer' onClick={handleSignOut}>Sign Out</span>
             </div>
             {updateUserSuccess && (<Alert color='success' className='mt-5 '>
                 {updateUserSuccess}
