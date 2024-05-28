@@ -56,7 +56,7 @@ app.listen(port, () => {
 
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
-app.use('api/post', postRoutes);
+app.use('/api/post', postRoutes);
 
 
 
