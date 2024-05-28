@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 
 import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
+import postRoutes from './routes/post.route.js';
 
 
 dotenv.config();
@@ -55,7 +56,7 @@ app.listen(port, () => {
 
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
-
+app.use('api/post', postRoutes);
 
 
 
