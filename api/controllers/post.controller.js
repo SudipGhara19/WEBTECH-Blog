@@ -1,5 +1,5 @@
 import Post from "../models/post.model.js";
-import { errorHandler } from "../utils/error"
+import { errorHandler } from "../utils/error.js"
 
 //-----------------------------Create Post API----------------------
 export const create = async (req, res, next) => {
