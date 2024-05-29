@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import {useLocation} from 'react-router-dom';
 import DashSidebar from '../components/DashSidebar.jsx';
 import DashProfile from '../components/DashProfile.jsx';
+import DashPosts from '../components/DashPosts.jsx';
 
 
 export default function Dashboard(){
@@ -27,6 +28,8 @@ export default function Dashboard(){
             <div className='mx-auto max-w-lg p-3 w-full'>
                 {/* Profile..... */}
                 {tab === 'profile' && <DashProfile />}
+                {/* POSTS..... */}
+                {tab === 'posts' && <DashPosts />}
             </div>
         </div>
     )
