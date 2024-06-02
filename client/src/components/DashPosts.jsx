@@ -1,10 +1,11 @@
-import { Table } from "flowbite-react";
+import { Button, Table } from "flowbite-react";
 import { useEffect, useState } from "react"
 import {useSelector} from 'react-redux';
 import { Link } from "react-router-dom";
 
 export default function DashPosts(){
     const {currentUser} = useSelector((state) => state.user);
+    const [showMore, setShowMore] = useState(true);
     const [userPosts, setUserPosts] = useState([]);
 
     useEffect(() => {
@@ -17,14 +18,37 @@ export default function DashPosts(){
             if(res.ok){
                 setUserPosts(data.posts);
             };
+            if(data.posts.length < 9){
+                setShowMore(false);
+            }
         }
         if(currentUser.isAdmin){
             fetchPosts();
         }
     }, [currentUser._id]);
 
+
+    const handleShowMore = async () => {
+        const startIndex = userPosts.length;
+        try{
+            const res = await fetch(`${process.env.REACT_APP_BACKEND}api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`,{
+                method: 'GET'
+            });
+            const data = await res.json();
+            if(res.ok){
+                setUserPosts((prev) => [...prev, ...data.posts]);
+                if(data.posts.length < 9){
+                    setShowMore(false);
+                }
+            }
+
+        }catch(error){
+            console.log(error)
+        }
+    }
+
     return(
-        <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
+        <div className='h-screen table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
             {currentUser.isAdmin && userPosts.length > 0 ? (
                 <>
                     <Table hoverable className="shadow-md">
@@ -65,6 +89,9 @@ export default function DashPosts(){
                             </Table.Body>
                         ))}
                     </Table>
+                    {showMore && (<Button className="mx-auto my-3" onClick={handleShowMore}>
+                        Show more
+                    </Button>)}
                 </>
             )  :  (
                 <p>You have no posts yet!</p>
