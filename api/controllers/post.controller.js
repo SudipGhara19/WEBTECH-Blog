@@ -89,3 +89,32 @@ export const deletePost = async (req, res, next) => {
         next(error)
     }
 }
+
+
+
+//------------------------------Update post API-------------------------
+export const updatePost = async (req, res, next) => {
+    if(!req.user.isAdmin || req.user.id !== req.params.userId){
+        return next(errorHandler(403, 'You are not allowed to update this post.'))
+    }
+
+    try{
+        const slug = req.body.title.split(' ').join('-').toLowerCase().replace(/[^a-zA-Z0-9-]/g, '');
+        const updatedPost = await Post.findByIdAndUpdate(req.params.postId, 
+            {
+                $set: {
+                    title: req.body.title,
+                    image: req.body.image,
+                    content: req.body.content,
+                    category: req.body.category,
+                    slug: slug
+                }
+        }, {new: true});
+
+        res.status(200).json(updatedPost)
+
+    }catch(error){
+        console.log(error);
+        next(error);
+    }
+}
