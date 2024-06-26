@@ -1,12 +1,14 @@
 import { Alert, Button, Textarea } from 'flowbite-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {useSelector} from 'react-redux'
 import { Link } from 'react-router-dom';
+import Comments from './Comments';
 
 export default function CommentSection({postId}){
     const {currentUser} = useSelector((state) => state.user);
     const [comment, setComment] = useState('');
     const [commentError, setCommentError] = useState(null);
+    const [comments, setComments] = useState([]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -36,6 +38,7 @@ export default function CommentSection({postId}){
             if(res.ok){
                 setCommentError(null);
                 setComment('');
+                setComments([data, ...comments])
 
             }
         }catch(err){
@@ -45,46 +48,85 @@ export default function CommentSection({postId}){
         
     };
 
+    useEffect(() => {
+        const getComments = async () => {
+            try{
+                const res = await fetch(`${process.env.REACT_APP_BACKEND}api/comment/getPostComments/${postId}`, {
+                    method: 'GET',
+                    headers: {'Content-Type':'application/json'},
+                    credentials: 'include'
+                });
+
+                const data = await res.json();
+                if(res.ok){
+                    setComments(data);
+                }
+            }catch(error){
+                console.log(error);
+            }
+        }
+        getComments();
+    }, [postId]);
+
     return(
         <div className='max-w-2xl mx-auto p-3 w-full'>
             { currentUser ? 
-            (
-                <div className='flex items-center gap-1 my-7 text-gray-500'>
-                    <p>Signed in as:</p>
-                    <img className='h-5 w-5 object-cover rounded-full' src={currentUser.profilePicture} alt='user-image' />
-                    <Link className='text-cyan-600 hover:underline' to='/dashboard?tab=profile' >@{currentUser.username}</Link>
-                </div>
-            )
-            :
-            (
-                <div className='text-sm'>
-                    You must be signed in to comment.
-                    <Link to='/signin' className='text-cyan-600'>Sign In</Link>
-                </div>
-            )
-        }
+                (
+                    <div className='flex items-center gap-1 my-7 text-gray-500'>
+                        <p>Signed in as:</p>
+                        <img className='h-5 w-5 object-cover rounded-full' src={currentUser.profilePicture} alt='user-image' />
+                        <Link className='text-cyan-600 hover:underline' to='/dashboard?tab=profile' >@{currentUser.username}</Link>
+                    </div>
+                )
+                :
+                (
+                    <div className='text-sm'>
+                        You must be signed in to comment.
+                        <Link to='/signin' className='text-cyan-600'>Sign In</Link>
+                    </div>
+                )
+            }
 
-        {currentUser && (
-            <form onSubmit={handleSubmit} className='border border-teal-500 rounded-md p-3'>
-                <Textarea
-                placeholder='Add a comment...'
-                rows='3'
-                maxLength='200'
-                onChange={(e) => setComment(e.target.value)}
-                value={comment}     />
-                <div className='flex justify-between mt-5'>
-                    <p className='text-gray-400'>{200 - comment.length} character remaining</p>
-                    <Button type='submit'
-                            outline
-                            gradientDuoTone='purpleToBlue'>
-                        Submit
-                    </Button>
-                </div>
-                {commentError && <Alert className='mt-3' color='failure'>{commentError}</Alert>}
-            </form>
+            {currentUser && (
+                <form onSubmit={handleSubmit} className='border border-teal-500 rounded-md p-3'>
+                    <Textarea
+                    placeholder='Add a comment...'
+                    rows='3'
+                    maxLength='200'
+                    onChange={(e) => setComment(e.target.value)}
+                    value={comment}     />
+                    <div className='flex justify-between mt-5'>
+                        <p className='text-gray-400'>{200 - comment.length} character remaining</p>
+                        <Button type='submit'
+                                outline
+                                gradientDuoTone='purpleToBlue'>
+                            Submit
+                        </Button>
+                    </div>
+                    {commentError && <Alert className='mt-3' color='failure'>{commentError}</Alert>}
+                </form>
+            )}
+            {comments.length === 0 ? 
+                (
+                    <p className='my-5 text-sm'>No comments yet!</p>
 
-            
-        )}
+                ) : (
+                <>
+                    <div className='flex items-center my-5 gap-1'>
+                        <p>Comments</p>
+                        <div className='border border-gray-500 rounded-sm py-1 px-3'>
+                            <p>{comments.length}</p>
+                        </div>
+                    </div>
+                    {comments.map((comment) => (
+                        <Comments 
+                        key={comment._id}
+                        comment={comment}/>
+                    ))
+                    }
+                </>
+                )
+            }
         </div>
     )
 }
