@@ -25,9 +25,7 @@ export default function FooterCom(){
                                 Github
                             </Footer.Link>
                             <Footer.Link 
-                            href="/about"
-                            target="_blank"
-                            rel="noopener noreferrer">
+                            href="/about">
                                 About WEBtech-BLOG
                             </Footer.Link>
                         </Footer.LinkGroup>

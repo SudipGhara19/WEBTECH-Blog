@@ -7,7 +7,7 @@ export default function CallToAction(){
                 <h2 className="text-2xl">Want to see more projects?</h2>
                 <p className="text-gray-500 my-3">Check out more projects built over MERN technologies on GitHub</p>
                 <Button gradientDuoTone='purpleToBlue' className="rounded-full rounded-bl-none rounded-tr-none mx-5">
-                    <a href="https://github.com/SudipGhara19">More Projects</a>
+                    <a href="https://github.com/SudipGhara19" target="_blank" rel="noopener noreferrer">More Projects</a>
                 </Button>
             </div>
             <div className="p-7 flex-1">
