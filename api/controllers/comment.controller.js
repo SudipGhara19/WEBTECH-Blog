@@ -36,3 +36,29 @@ export const getPostComments = async (req, res, next) => {
         next(error)
     }
 }
+
+//-----------------------------------Toggle Like API ----------------------------------
+export const toggleLike = async (req, res, next) => {
+    try{
+        const comment = await Comment.findById(req.params.commentId);
+        if(!comment){
+            return next(errorHandler(403, 'Comment not found.'));
+        }
+        const userIndex = comment.likes.indexOf(req.user.id);
+        if(userIndex === -1){
+            comment.numOfLikes += 1;
+            comment.likes.push(req.user.id);
+
+        }else{
+            comment.numOfLikes -= 1;
+            comment.likes.splice(userIndex, 1);
+        }
+
+        await comment.save();
+        res.status(200).json(comment);
+
+    }catch(error){
+        console.log(error);
+        next(error)
+    }
+}
