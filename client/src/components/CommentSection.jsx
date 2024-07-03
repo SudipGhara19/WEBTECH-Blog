@@ -105,6 +105,12 @@ export default function CommentSection({postId}){
         )
     }
 
+    const handleDelete = async (comment) => {
+        setComments(
+            comments.filter((c) => c._id !== comment._id)
+        )
+    }
+
 
     return(
         <div className='max-w-2xl mx-auto p-3 w-full'>
@@ -161,7 +167,8 @@ export default function CommentSection({postId}){
                         key={comment._id}
                         comment={comment}
                         onLike={handleLike}
-                        onEdit={handleEdit}/>
+                        onEdit={handleEdit}
+                        onDelete={handleDelete}/>
                     ))
                     }
                 </>

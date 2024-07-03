@@ -2,14 +2,18 @@ import { useEffect, useState } from "react"
 import moment from 'moment';
 import { FaThumbsUp } from 'react-icons/fa'
 import { useSelector } from "react-redux";
-import { Button, Textarea } from "flowbite-react";
+import { Button, Modal, Textarea } from "flowbite-react";
+import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { useNavigate } from "react-router-dom";
 
-export default function Comments({ comment, onLike, onEdit }){
+export default function Comments({ comment, onLike, onEdit, onDelete }){
 
     const [user, setUser] = useState({});
     const {currentUser} = useSelector((state) => state.user);
     const [isEditing, setIsEditing] = useState(false);
     const [editedContent, setEditedContent] = useState(comment.content);
+    const [showModal, setShowModal] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const getUser = async () => {
@@ -48,6 +52,30 @@ export default function Comments({ comment, onLike, onEdit }){
             if(res.ok){
                 setIsEditing(false);
                 onEdit(comment, editedContent);
+            }
+
+        }catch(error){
+            console.log(error);
+        }
+    }
+
+    const handleDelete = async () => {
+        setShowModal(false);
+
+        try{
+            if(!currentUser){
+                navigate('/signin');
+                return;
+            }
+
+            const res = await fetch(`${process.env.REACT_APP_BACKEND}api/comment/deleteComment/${comment._id}`, {
+                method: 'DELETE',
+                headers: {'Content-Type': 'application/json'},
+                credentials: 'include'
+            });
+
+            if(res.ok){
+                onDelete(comment);
             }
 
         }catch(error){
@@ -102,6 +130,36 @@ export default function Comments({ comment, onLike, onEdit }){
                                         </button>
                                     )
                                 }
+
+                                {
+                                    currentUser && (currentUser._id === comment.userId || currentUser.isAdmin) && (
+                                        <button className="text-sm text-gray-500"
+                                                onClick={()=>setShowModal(true)}>
+                                            Delete
+                                        </button>
+                                    )
+                                }
+                                <Modal show={showModal} 
+                                    onClose={() => setShowModal(false)}
+                                    popup
+                                    size='md'
+                                    >
+                                    <div className='text-center'>
+                                    <Modal.Header/>
+                                    <Modal.Body>
+                                        <HiOutlineExclamationCircle 
+                                            className='h-14 w-14 mx-auto mb-4 text-gray-500 dark:text-gray-300' 
+                                            />
+                                        <h3 className='mb-3 text-gray-700 text-center text-lg'>
+                                            Are you sure you want to delete this comment?
+                                        </h3>
+                                        <div className='flex justify-center gap-4'>
+                                            <Button color='failure' onClick={handleDelete}>Yes, I am sure</Button>
+                                            <Button color='gray' onClick={() => setShowModal(false)}>No, cancel</Button>
+                                        </div>
+                                    </Modal.Body>
+                                    </div>
+                                </Modal>
                             </div>
                     </>)
                 }
