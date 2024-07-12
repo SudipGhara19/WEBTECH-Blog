@@ -38,7 +38,7 @@ export default function DashComments() {
     const startIndex = comments.length;
     try {
       const res = await fetch(
-        `${process.env.REACT_APP_BACKEND}api/comment/getcomments?startIndex=${startIndex}`,{
+        `${process.env.REACT_APP_BACKEND}api/comment/getComments?startIndex=${startIndex}`,{
             method: 'GET',
             headers: {'Content-Type': 'application/json'},
             credentials: 'include'
