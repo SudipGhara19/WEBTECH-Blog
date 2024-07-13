@@ -11,7 +11,7 @@ export default function CallToAction(){
                 </Button>
             </div>
             <div className="p-7 flex-1">
-                <img src="https://miro.medium.com/v2/resize:fit:1400/1*Hm-G7dLwMZtLOPWbL6nkww.jpeg" alt="action-img"/>
+                <img className="" src="https://inzint.com/wp-content/uploads/2023/02/Features-of-Mern-stack-development-services-You-Should-Know-1.png" alt="action-img"/>
             </div>
         </div>
     )
