@@ -8,9 +8,11 @@ import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
 import postRoutes from './routes/post.route.js';
 import commentRoutes from './routes/comment.route.js';
+import path from 'path';
 
 
 dotenv.config();
+const __dirname = path.resolve();
 const port = 5001;
 const app = express();
 
@@ -52,6 +54,8 @@ app.listen(port, () => {
     console.log(`Server is up and running on PORT ---> http://localhost:${port}`)
 });
 
+ 
+
 
 //----------------------------------Routes--------------------------------------
 
@@ -59,6 +63,14 @@ app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/post', postRoutes);
 app.use('/api/comment', commentRoutes);
+
+
+
+app.use(express.static(path.join(__dirname, '/client/build')));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
+})
 
 
 
