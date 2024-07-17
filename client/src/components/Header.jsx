@@ -66,8 +66,9 @@ export default function Header(){
                     placeholder="Search..."
                     rightIcon={AiOutlineSearch}
                     className="hidden lg:inline"
-                    onChange={(e)=> setSearchTerm(e.target.value)}
                     value={searchTerm}
+                    onChange={(e)=> setSearchTerm(e.target.value)}
+                    
                     
                 />
             </form>
