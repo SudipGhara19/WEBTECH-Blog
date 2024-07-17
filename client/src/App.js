@@ -14,7 +14,7 @@ import UpdatePost from "./pages/UpdatePost.jsx";
 import OnlyAdminPrivateRoute from "./components/OnlyAdminPrivateRoute.jsx";
 import PostPage from "./pages/PostPage.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
-import Search from "./components/Search.jsx";
+import Search from "./pages/Search.jsx";
 
 function App() {
   return (
