@@ -13,7 +13,7 @@ export default function DashUsers(){
 
     useEffect(() => {
         const fetchUsers = async () => {
-            const res = await fetch(`${process.env.REACT_APP_BACKEND}api/user/getusers`,{
+            const res = await fetch(`${process.env.REACT_APP_BACKEND}/api/user/getusers`,{
                 method: 'GET',
                 credentials: 'include',
                 headers: {'Content-Type' : 'application/json'}
@@ -36,7 +36,7 @@ export default function DashUsers(){
     const handleShowMore = async () => {
         const startIndex = users.length;
         try{
-            const res = await fetch(`${process.env.REACT_APP_BACKEND}api/user/getusers?startIndex=${startIndex}`,{
+            const res = await fetch(`${process.env.REACT_APP_BACKEND}/api/user/getusers?startIndex=${startIndex}`,{
                 method: 'GET',
                 credentials: 'include',
                 headers: {'Content-Type' : 'application/json'}
@@ -57,7 +57,7 @@ export default function DashUsers(){
 
     const handleDeleteUser = async () => {
         try{
-             const res = await fetch(`${process.env.REACT_APP_BACKEND}api/user/delete/${userIdToDelete}`,{
+             const res = await fetch(`${process.env.REACT_APP_BACKEND}/api/user/delete/${userIdToDelete}`,{
                 method: 'DELETE',
                 credentials: 'include',
                 headers: {'Content-Type': 'application/json'}

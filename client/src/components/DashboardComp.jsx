@@ -20,7 +20,7 @@ export default function DashboardComp(){
     useEffect(() => {
         // Fetching the Users 
         const fetchUsers = async () => {
-            const res = await fetch(`${process.env.REACT_APP_BACKEND}api/user/getUsers?limit=5`,{
+            const res = await fetch(`${process.env.REACT_APP_BACKEND}/api/user/getUsers?limit=5`,{
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'},
                 credentials: 'include'
@@ -36,7 +36,7 @@ export default function DashboardComp(){
 
         //Fetching the Posts
         const fetchPosts = async () => {
-            const res = await fetch(`${process.env.REACT_APP_BACKEND}api/post/getPosts?limit=5`,{
+            const res = await fetch(`${process.env.REACT_APP_BACKEND}/api/post/getPosts?limit=5`,{
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'},
                 credentials: 'include'
@@ -51,7 +51,7 @@ export default function DashboardComp(){
         }
         //Fetching the Comments
         const fetchComments = async () => {
-            const res = await fetch(`${process.env.REACT_APP_BACKEND}api/comment/getComments?limit=5`,{
+            const res = await fetch(`${process.env.REACT_APP_BACKEND}/api/comment/getComments?limit=5`,{
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'},
                 credentials: 'include'

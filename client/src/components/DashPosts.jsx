@@ -13,7 +13,7 @@ export default function DashPosts(){
 
     useEffect(() => {
         const fetchPosts = async () => {
-            const res = await fetch(`${process.env.REACT_APP_BACKEND}api/post/getposts?userId=${currentUser._id}`,{
+            const res = await fetch(`${process.env.REACT_APP_BACKEND}/api/post/getposts?userId=${currentUser._id}`,{
                 method: 'GET'
             });
             const data = await res.json();
@@ -34,7 +34,7 @@ export default function DashPosts(){
     const handleShowMore = async () => {
         const startIndex = userPosts.length;
         try{
-            const res = await fetch(`${process.env.REACT_APP_BACKEND}api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`,{
+            const res = await fetch(`${process.env.REACT_APP_BACKEND}/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`,{
                 method: 'GET'
             });
             const data = await res.json();
@@ -55,7 +55,7 @@ export default function DashPosts(){
         setShowModal(false);
         try{
 
-            const res = await fetch(`${process.env.REACT_APP_BACKEND}api/post/deletepost/${currentUser._id}/${postIdToDelete}`, {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND}/api/post/deletepost/${currentUser._id}/${postIdToDelete}`, {
                 method: 'DELETE',
                 credentials: 'include',
                 headers: {"content-Type" : "application/json"},

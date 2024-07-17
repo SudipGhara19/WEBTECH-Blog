@@ -37,7 +37,7 @@ export default function Search(){
             setLoading(true);
             const searchQuery = urlParams.toString();
 
-            const res = await fetch(`${process.env.REACT_APP_BACKEND}api/post/getPosts?${searchQuery}`, {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND}/api/post/getPosts?${searchQuery}`, {
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'}
             });
@@ -98,7 +98,7 @@ export default function Search(){
         urlParams.set('startIndex', startIndex);
         const searchQuery = urlParams.toString();
 
-        const res = await fetch(`${process.env.REACT_APP_BACKEND}api/post/getPosts?${searchQuery}`, {
+        const res = await fetch(`${process.env.REACT_APP_BACKEND}/api/post/getPosts?${searchQuery}`, {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
         });

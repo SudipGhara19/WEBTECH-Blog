@@ -18,7 +18,7 @@ export default function Comments({ comment, onLike, onEdit, onDelete }){
     useEffect(() => {
         const getUser = async () => {
             try{
-                const res = await fetch(`${process.env.REACT_APP_BACKEND}api/user/getUser/${comment.userId}`,{
+                const res = await fetch(`${process.env.REACT_APP_BACKEND}/api/user/getUser/${comment.userId}`,{
                     method: 'GET',
                     headers: {'Content-Type' : 'application/json'},
                 });
@@ -40,7 +40,7 @@ export default function Comments({ comment, onLike, onEdit, onDelete }){
 
     const handleSave = async () => {
         try{
-            const res = await fetch(`${process.env.REACT_APP_BACKEND}api/comment/editComment/${comment._id}`, {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND}/api/comment/editComment/${comment._id}`, {
                 method: 'PUT',
                 headers: {'Content-Type': 'application/json'},
                 credentials: 'include',
@@ -68,7 +68,7 @@ export default function Comments({ comment, onLike, onEdit, onDelete }){
                 return;
             }
 
-            const res = await fetch(`${process.env.REACT_APP_BACKEND}api/comment/deleteComment/${comment._id}`, {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND}/api/comment/deleteComment/${comment._id}`, {
                 method: 'DELETE',
                 headers: {'Content-Type': 'application/json'},
                 credentials: 'include'

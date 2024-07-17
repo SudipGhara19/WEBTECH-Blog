@@ -10,7 +10,7 @@ export default function Home(){
     useEffect(() => {
         try{
             const fetchPosts = async () => {
-                const res = await fetch(`${process.env.REACT_APP_BACKEND}api/post/getPosts`,{
+                const res = await fetch(`${process.env.REACT_APP_BACKEND}/api/post/getPosts`,{
                     method: 'GET',
                     headers: {'Content-Type': 'application/json'}
                 });

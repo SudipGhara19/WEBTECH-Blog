@@ -21,7 +21,7 @@ export default function CommentSection({postId}){
         }
 
         try{
-            const res = await fetch(`${process.env.REACT_APP_BACKEND}api/comment/create`, {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND}/api/comment/create`, {
                 method: 'POST',
                 headers: {'Content-Type':'application/json'},
                 credentials: 'include',
@@ -53,7 +53,7 @@ export default function CommentSection({postId}){
     useEffect(() => {
         const getComments = async () => {
             try{
-                const res = await fetch(`${process.env.REACT_APP_BACKEND}api/comment/getPostComments/${postId}`, {
+                const res = await fetch(`${process.env.REACT_APP_BACKEND}/api/comment/getPostComments/${postId}`, {
                     method: 'GET',
                     headers: {'Content-Type':'application/json'},
                     credentials: 'include'
@@ -78,7 +78,7 @@ export default function CommentSection({postId}){
                 return;
             }
 
-            const res = await fetch(`${process.env.REACT_APP_BACKEND}api/comment/toggleLike/${commentId}`, {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND}/api/comment/toggleLike/${commentId}`, {
                 method: 'PUT',
                 headers: {'Content-Type': 'application/json'},
                 credentials: 'include',

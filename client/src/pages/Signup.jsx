@@ -28,7 +28,7 @@ export default function Signup(){
         try{
             setLoading(true);
             setErrorMessage(null);
-            const res = await fetch(`${process.env.REACT_APP_BACKEND}api/auth/signup`, {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND}/api/auth/signup`, {
                 method: 'POST',
                 headers: {
                     "content-type": "application/json"

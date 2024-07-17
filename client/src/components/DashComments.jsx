@@ -13,7 +13,7 @@ export default function DashComments() {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const res = await fetch(`${process.env.REACT_APP_BACKEND}api/comment/getComments`,{
+        const res = await fetch(`${process.env.REACT_APP_BACKEND}/api/comment/getComments`,{
             method: 'GET',
             headers: {'Content-Type': 'application/json'},
             credentials: 'include'
@@ -38,7 +38,7 @@ export default function DashComments() {
     const startIndex = comments.length;
     try {
       const res = await fetch(
-        `${process.env.REACT_APP_BACKEND}api/comment/getComments?startIndex=${startIndex}`,{
+        `${process.env.REACT_APP_BACKEND}/api/comment/getComments?startIndex=${startIndex}`,{
             method: 'GET',
             headers: {'Content-Type': 'application/json'},
             credentials: 'include'
@@ -60,7 +60,7 @@ export default function DashComments() {
     setShowModal(false);
     try {
       const res = await fetch(
-        `${process.env.REACT_APP_BACKEND}api/comment/deleteComment/${commentIdToDelete}`,
+        `${process.env.REACT_APP_BACKEND}/api/comment/deleteComment/${commentIdToDelete}`,
         {
           method: 'DELETE',
           headers: {'Content-Type': 'application/json'},

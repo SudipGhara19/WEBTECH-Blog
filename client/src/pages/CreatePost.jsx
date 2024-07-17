@@ -57,7 +57,7 @@ export default function CreatePost() {
     const handleSubmitPost = async (e) => {
         e.preventDefault();
         try{
-            const res = await fetch(`${process.env.REACT_APP_BACKEND}api/post/create`, {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND}/api/post/create`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: { 'Content-Type':'application/json' },

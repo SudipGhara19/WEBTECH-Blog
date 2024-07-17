@@ -26,7 +26,7 @@ export default function DashSidebar(){
 
     const handleSignOut = async () => {
         try{
-            const res = await fetch(`${process.env.REACT_APP_BACKEND}api/user/signout`, {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND}/api/user/signout`, {
                 method: 'POST',
                 credentials: 'include'
             });
