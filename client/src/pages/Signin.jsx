@@ -30,7 +30,7 @@ export default function Signin(){
 
         try{
             dispatch(signInStart())
-            const res = await fetch(`${process.env.REACT_APP_BACKEND}api/auth/signin`, {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND}/api/auth/signin`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: {

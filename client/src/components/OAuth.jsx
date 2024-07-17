@@ -19,7 +19,7 @@ export default function OAuth(){
         provider.setCustomParameters({prompt: 'select_account'});
         try{
             const resultfromGoogle = await signInWithPopup(auth, provider);
-            const res = await fetch(`${process.env.REACT_APP_BACKEND}api/auth/google`, {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND}/api/auth/google`, {
                 method: "POST",
                 credentials: 'include',
                 headers: { 'Content-Type':'application/json' },
