@@ -67,7 +67,7 @@ export default function Header(){
                     rightIcon={AiOutlineSearch}
                     className="hidden lg:inline"
                     value={searchTerm}
-                    onChange={(e)=> setSearchTerm(e.target.value)}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                     
                     
                 />
